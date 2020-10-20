@@ -1,22 +1,57 @@
-import React from "react"
-import { Link } from "gatsby"
+import React from 'react'
+import Layout from '../components/layout'
+import styled from '@emotion/styled';
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import useInicio from '../hooks/useInicio';
+import BackgroundImage from 'gatsby-background-image';
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+import heroCSS from '../css/hero.module.css'
 
-export default IndexPage
+import Encuentra from '../components/encuentra'
+import ListadoPropiedades from '../components/listadoPropiedades'
+
+const BackgroundImagen=styled(BackgroundImage)`
+    height:600px;    
+`
+const Container = styled.div`
+    max-width:800px;
+    margin:0 auto;
+`
+const Contenido=styled.p`
+    text-align:center;
+`
+
+
+function Index() {
+    const inicio = useInicio();    
+   const { nombre, contenido, imagen } = inicio[0];
+    return (
+
+        <Layout>
+           <BackgroundImagen 
+                tag="section"
+                fluid={imagen.sharp.fluid}
+                fadeIn="soft"
+            >
+                <div className={heroCSS.imagenbg}>
+                    <h1 className={heroCSS.titulo} >
+                        Venta de caasas y departamentos exclusivos
+                    </h1>
+                </div>
+            </BackgroundImagen>
+            <main>
+                <Container>
+                    <h1>{nombre}</h1>
+                    <Contenido>{contenido}</Contenido>
+                </Container>
+            </main>
+            
+            <Encuentra/>
+            <ListadoPropiedades/>
+        </Layout>
+    );
+
+}
+
+export default Index
+
